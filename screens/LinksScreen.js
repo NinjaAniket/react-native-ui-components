@@ -1,74 +1,51 @@
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
+import React from "react";
+import { View, Text, ScrollView } from "react-native";
+import { Input, Divider } from "../src";
+import theme from "../src/theme/index";
 
 export default function LinksScreen() {
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <OptionButton
-        icon="md-school"
-        label="Read the Expo documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://docs.expo.io')}
-      />
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+      <ScrollView style={{ marginHorizontal: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: "bold", marginVertical: 20 }}>
+          Input Components
+        </Text>
+        <Input placeholder="regular" />
+        <Input
+          placeholder="theme"
+          color={theme.COLORS.THEME}
+          style={{ borderColor: theme.COLORS.THEME }}
+          placeholderTextColor={theme.COLORS.THEME}
+        />
+        <Input
+          placeholder="info"
+          color={theme.COLORS.INFO}
+          style={{ borderColor: theme.COLORS.INFO }}
+          placeholderTextColor={theme.COLORS.INFO}
+        />
+        <Input
+          placeholder="warning"
+          color={theme.COLORS.WARNING}
+          style={{ borderColor: theme.COLORS.WARNING }}
+          placeholderTextColor={theme.COLORS.WARNING}
+        />
+        <Input
+          placeholder="error"
+          color={theme.COLORS.ERROR}
+          style={{ borderColor: theme.COLORS.ERROR }}
+          placeholderTextColor={theme.COLORS.ERROR}
+        />
+        <Input
+          placeholder="success"
+          color={theme.COLORS.SUCCESS}
+          style={{ borderColor: theme.COLORS.SUCCESS }}
+          placeholderTextColor={theme.COLORS.SUCCESS}
+        />
 
-      <OptionButton
-        icon="md-compass"
-        label="Read the React Navigation documentation"
-        onPress={() => WebBrowser.openBrowserAsync('https://reactnavigation.org')}
-      />
-
-      <OptionButton
-        icon="ios-chatboxes"
-        label="Ask a question on the forums"
-        onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
-        isLastOption
-      />
-    </ScrollView>
+        <Input placeholder="password" password viewPass />
+        <Input placeholder="rounded input" rounded />
+        {/* <Divider /> */}
+      </ScrollView>
+    </View>
   );
 }
-
-function OptionButton({ icon, label, onPress, isLastOption }) {
-  return (
-    <RectButton style={[styles.option, isLastOption && styles.lastOption]} onPress={onPress}>
-      <View style={{ flexDirection: 'row' }}>
-        <View style={styles.optionIconContainer}>
-          <Ionicons name={icon} size={22} color="rgba(0,0,0,0.35)" />
-        </View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{label}</Text>
-        </View>
-      </View>
-    </RectButton>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fafafa',
-  },
-  contentContainer: {
-    paddingTop: 15,
-  },
-  optionIconContainer: {
-    marginRight: 12,
-  },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
-});

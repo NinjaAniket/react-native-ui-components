@@ -1,179 +1,105 @@
-import * as WebBrowser from 'expo-web-browser';
-import * as React from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-
-import { MonoText } from '../components/StyledText';
+import React from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import Button from "../src/Button";
+import Checkbox from "../src/Checkbox";
+import Card from "../src/Card";
+import theme from "../src/theme/index";
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+    <View style={{ backgroundColor: "#fff", flex: 1 }}>
+      <ScrollView
+        style={{
+          flex: 1,
+          marginTop: 10,
+          marginHorizontal: 10,
+          backgroundColor: "#fff",
+        }}
+      >
+        <Text style={styles.header}>Button Section</Text>
+        <Button>Primary</Button>
+        <Button color="info">info</Button>
+        <Button color="success">success</Button>
+        <Button color="warning">warning</Button>
+        <Button color="error">error</Button>
+        <Button capitalize loading>
+          small size capitalize
+        </Button>
+        <Button round size="small" color="success" style={{ marginTop: 10 }}>
+          round and small
+        </Button>
 
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
+        <Button round uppercase color="error">
+          round uppercase
+        </Button>
 
-          <Text style={styles.getStartedText}>Open up the code for this screen:</Text>
+        <Text style={styles.header}>Checkbox Section</Text>
 
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
+        <Checkbox
+          color="primary"
+          label="Primary Checkbox"
+          labelStyle={{ fontSize: 18 }}
+        />
 
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
-        </View>
+        <Checkbox
+          color="info"
+          label="Info Checkbox"
+          labelStyle={{ fontSize: 18 }}
+        />
+        <Checkbox
+          color="error"
+          label="Error Checkbox"
+          labelStyle={{ fontSize: 18 }}
+        />
+        <Checkbox
+          color="warning"
+          label="Warning Checkbox"
+          labelStyle={{ fontSize: 18 }}
+        />
+        <Checkbox
+          color="success"
+          label="Success Checkbox"
+          labelStyle={{ fontSize: 18 }}
+        />
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.header}>Card Section</Text>
+
+        <Card
+          flex
+          borderless
+          title="MacIntosh"
+          caption="Apple"
+          location="Mumbai, IN"
+          avatar="https://www.apple.com/ac/structured-data/images/knowledge_graph_logo.png?202005131207"
+          imageStyle={styles.cardImageRadius}
+          imageBlockStyle={{ padding: theme.SIZES.BASE / 2 }}
+          image="https://images.unsplash.com/photo-1515248137880-45e105b710e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=771&q=80"
+        />
+
+        {/* <Card
+          flex
+          style={styles.card}
+          title="I Am a Demo Card with Radius"
+          titleColor="#000"
+          caption="This is a demo card"
+        /> */}
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-        <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
-        </View>
-      </View>
     </View>
   );
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
-  );
-}
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+  card: {
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    width: "100%",
+    height: 250,
   },
-  developmentModeText: {
+  header: {
+    marginTop: 20,
     marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+    fontSize: 20,
+    textDecorationStyle: "dashed",
+    fontWeight: "bold",
   },
 });
